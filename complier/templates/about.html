@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style22.css') }}">
+     <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/8093/8093308.png">
+    <title>SLR Parser</title>
+</head>
+<body>
+    <ul>
+        <li><a href="{{url_for('home')}}">Home</a></li>
+        <li><a   href="{{url_for('parse_input')}}">SLR TOOL</a></li>
+        <li><a  class="active" href="{{url_for('about')}}">About</a></li>
+        </ul>
+    <section>
+        <h2>A TOOL FOR VALIDATING INPUT STRING USING SLR PARSING TECHNIQUE</h2>
+        <p>College Name: Saveetha School of Engineering</p>
+
+        <div class="team-member">
+            <img src="{{ url_for('static', filename='kishore.jpg') }}" width="160" height="160" alt="Kishore K">
+            <p><strong>Kishore K</strong><br>Reg No: 192111026</p>
+        </div>
+
+        <div class="team-member">
+            <img src="{{ url_for('static', filename='rii.jpg') }}" alt="Rhea Rebecca" width="160" height="160">
+            <p><strong>Rhea Rebecca</strong><br>Reg No: 192124009</p>
+        </div>
+
+        <div class="team-member">
+            <img src="{{ url_for('static', filename='aisu.jpg') }}" alt="Aishwaraya" width="160" height="160">
+            <p><strong>Aishwaraya</strong><br>Reg No: 192125001</p>
+        </div>
+    </section>
+
+    <footer>
+        &copy; A TOOL FOR VALIDATING INPUT STRING USING SLR PARSING TECHNIQUE
+    </footer>
+
+</body>
+</html>

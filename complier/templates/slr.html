@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style2.css') }}">
+     <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/8093/8093308.png">
+    <title>SLR Parser</title>
+</head>
+<body>
+    <ul>
+        <li><a href="{{url_for('home')}}">Home</a></li>
+        <li><a class="active"  href="{{url_for('parse_input')}}">SLR TOOL</a></li>
+        <li><a  href="{{url_for('about')}}">About</a></li>
+        </ul>
+    <h2>SLR Parser</h2>
+    
+    <form action="{{ url_for('parse_input') }}" method="post">
+        <label for="inputString">Input String</label>
+        <textarea id="inputString" name="inputString" placeholder="Enter your input string" required></textarea>
+        <label for="nonterminal">Non-Terminal</label>
+        <textarea id="nonterminal" name="nonterminal" placeholder="Enter your Non-Terminal" required></textarea>
+        <label for="terminal">Terminal</label>
+        <textarea id="terminal" name="terminal" placeholder="Enter your Terminal" required></textarea>
+        <button type="submit">Parse</button>
+    </form>
+
+    {% if org %}
+        <div id="result">
+            Original Grammar
+            <br>
+            {% for i in org %}
+                   {{ i }}
+                   <br />
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if aug %}
+         <div id="result">
+            Augmentated Grammar
+            <br>
+                {% for i in aug %}
+                {{ i[0] }} -&gt; {{' '.join(i[1]) }}
+                <br>
+                {% endfor %}
+        </div>
+    {% endif %}
+    {% if I0 %}
+         <div id="result">
+           Calculated closure: I0
+            <br>
+                {% for i in I0 %}
+                {{ i[0] }} -&gt; {{' '.join(i[1]) }}
+                <br>
+                {% endfor %}
+        </div>
+    {% endif %}
+    {% if state %}
+         <div id="result">
+           States Generated
+            <br>
+                {% for i in state %}
+                <h5>State=I{{i}}</h5>
+                {% for j in state[i] %}
+                {{ j[0] }} -&gt; {{' '.join(j[1]) }}
+                <br>
+                {% endfor %}
+                {% endfor %}
+        </div>
+    {% endif %}
+    {% if statemap %}
+         <div id="result">
+           Result of GOTO computation:
+            <br>
+                {% for i in statemap %}
+                    GOTO (I{{i[0]}}, {{i[1]}} )= I{{statemap[i]}}
+                    <br>
+                {% endfor %}
+        </div>
+    {% endif %}
+    {% if table1 %}
+        {% if col2 %}
+         <div id="result">
+            <h2>SLR(1) Parsing Table:</h2>
+             <table>
+              <thead>
+                 <tr>
+                  <th></th>
+                  {% for j in col2 %}
+                  <th>{{ j }}</th>
+                  {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in range(table1|length) %}
+            <tr>
+                <td>I{{ i }}</td>
+                {% for entry in table1[i] %}
+                    <td>{{ entry }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        {% endif %}
+        {% endif %}
+    </tbody>
+</table>
+            </tbody>
+</body>
+</html>

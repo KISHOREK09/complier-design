@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLR Parsing Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+     <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/8093/8093308.png">
+</head>
+<body class="dark">
+    <ul>
+        <li><a class="active" href="{{url_for('home')}}">Home</a></li>
+        <li><a href="{{url_for('parse_input')}}">SLR TOOL</a></li>
+        <li><a  href="{{url_for('about')}}">About</a></li>
+        </ul>
+    <header>
+        <h1>Compiler Design</h1>
+        <h2>SLR Parsing Tool</h2>
+    </header>
+    
+    <section id="introduction">
+        <h3>Introduction</h3>
+        <p>SLR Stands for Simple LR parser</p>
+        <p>LR parsers :</p>
+        <p>It is an efficient bottom-up syntax analysis technique that can be used to parse large classes of context-free grammar...</p>
+        <p>L stands for the left to right scanning
+R stands for rightmost  derivation in reverse
+0 stands for no. of input symbols of lookahead</p>
+    </section>
+
+    <section id="slr-parser">
+        <h3>SLR Parser</h3>
+        <p>SLR is simple LR. It is the smallest class of grammar having few number of states. SLR is very easy to construct and is similar to LR parsing. The only difference between SLR parser and LR(0) parser is that in LR(0) parsing table, there’s a chance of ‘shift reduced’ conflict because we are entering ‘reduce’ corresponding to all terminal states. We can solve this problem by entering ‘reduce’ corresponding to FOLLOW of LHS of production in the terminating state. This is called SLR(1) collection of items</p>
+        <p>Steps for constructing the SLR parsing table :</p>
+        <ol>
+            <p>         1.Writing augmented grammar</p>
+            <p>         2.LR(0) collection of items to be found</p>
+            <p>         3.Find FOLLOW of LHS of production</p>
+            <p>         4.Defining 2 functions: goto[list of terminals] and action[list of non-terminals] in the parsing table.</p>
+        </ol>
+        <p>RULE – If any non-terminal has ‘ . ‘ preceding it, we have to write all its production and add ‘ . ‘ preceding each of its production.</p>
+        <p>RULE – From each state to the next state, the ‘ . ‘ shifts to one place to the right.</p>
+    </section>
+
+    <section id="parsing-example">
+        <h3>Example Parsing</h3>
+        <p>
+            S–>AA   
+            A–>aA|b
+        </p>
+        <p>RULE – from each state to the next state, the ‘ . ‘ shifts to one place to the right.</p>
+        <p>->In the figure, I0 consists of augmented grammar.</p>
+        <p>->Io goes to I1 when  ‘ . ‘ of 0th production is shifted towards the right of S(S’->S.). this state is the accepted state. S is seen by the compiler.</p>
+        <p><->Io goes to I2 when  ‘ . ‘ of 1st production is shifted towards right (S->A.A) . A is seen by the compiler</p>
+        <p>->I0 goes to I3 when  ‘ . ‘ of the 2nd production is shifted towards right (A->a.A) . a is seen by the compiler.</p>
+        <p>->I0 goes to I4 when  ‘ . ‘ of the 3rd production is shifted towards right (A->b.) . b is seen by the compiler.</p>
+        <p>->I2 goes to I5 when  ‘ . ‘ of 1st production is shifted towards right (S->AA.) . A is seen by the compiler.</p>
+        <p>->I2 goes to I4 when  ‘ . ‘ of 3rd production is shifted towards right (A->b.) . b is seen by the compiler.</p>
+       <p>->I2 goes to I3 when  ‘ . ‘ of the 2nd production is shifted towards right (A->a.A) . a is seen by the compiler.</p>
+        <p>->I3 goes to I4 when  ‘ . ‘ of the 3rd production is shifted towards right (A->b.) . b is seen by the compiler.</p>
+        <p>->I3 goes to I6 when  ‘ . ‘ of 2nd production is shifted towards the right (A->aA.) . A is seen by the compiler.</p>
+        <p>->I3 goes to I3 when  ‘ . ‘ of the 2nd production is shifted towards right (A->a.A) . a is seen by the compiler.</p>
+    </section>
+
+
+    <footer>
+        <p>&copy; SLR TOOL KIT</p>
+    </footer>
+</body>
+</html>
